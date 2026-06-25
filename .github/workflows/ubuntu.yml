@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Install git and unzip
         run: apt-get update ; apt-get install -y git unzip
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/nlohmann/json-ci:v2.4.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -45,7 +45,7 @@ jobs:
       matrix:
         target: [ci_cppcheck, ci_test_valgrind, ci_test_amalgamation, ci_test_single_header, ci_single_binaries, ci_infer]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -57,7 +57,7 @@ jobs:
       matrix:
         target: [ci_cpplint, ci_reproducible_tests, ci_non_git_tests, ci_offline_testdata]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Install git, clang-tools, and unzip
         run: apt-get update ; apt-get install -y git clang-tools unzip
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -91,7 +91,7 @@ jobs:
     steps:
       - name: Install build-essential
         run: apt-get update ; apt-get install -y build-essential unzip clang wget
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -103,13 +103,13 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/nlohmann/json-ci:v2.4.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
         run: cmake --build build --target ci_test_coverage
       - name: Archive coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: ${{ github.workspace }}/build/html
@@ -126,7 +126,7 @@ jobs:
         compiler: ['4', '5', '6', '7', '8', '9', '10', '11', '12', 'latest']
     container: gcc:${{ matrix.compiler }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -143,7 +143,7 @@ jobs:
     steps:
       - name: Install unzip
         run: apt-get update ; apt-get install -y unzip
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@latest
       - name: Run CMake
@@ -158,7 +158,7 @@ jobs:
       matrix:
         compiler: [g++-4.8]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -172,7 +172,7 @@ jobs:
         standard: [11, 14, 17, 20]
         compiler: [gcc, clang]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -182,7 +182,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/nlohmann/json-ci:v2.4.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -192,7 +192,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/nlohmann/json-ci:v2.2.0
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
@@ -203,8 +203,8 @@ jobs:
   ci_reuse_compliance:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
       - name: Install REUSE tool
         run:  python -m pip install reuse
       - name: Run REUSE lint
@@ -216,7 +216,7 @@ jobs:
       matrix:
         target: [ci_test_examples, ci_test_api_documentation]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run CMake
         run: cmake -S . -B build -DJSON_CI=On
       - name: Build
